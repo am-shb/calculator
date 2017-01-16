@@ -9,6 +9,7 @@ bool waitingForOperand = true;
 char operand = 'x';
 QStringListModel *model;
 QString operation = "";
+bool shouldClean = false;
 
 
 Calculator::Calculator(QWidget *parent) :
@@ -36,16 +37,24 @@ void addToHistory(QString str) {
     model->setData(index, str);
 }
 
-void Calculator::on_b0_clicked() { ui->input->insertPlainText("0"); ui->input->setFocus(); }
-void Calculator::on_b1_clicked() { ui->input->insertPlainText("1"); ui->input->setFocus(); }
-void Calculator::on_b2_clicked() { ui->input->insertPlainText("2"); ui->input->setFocus(); }
-void Calculator::on_b3_clicked() { ui->input->insertPlainText("3"); ui->input->setFocus(); }
-void Calculator::on_b4_clicked() { ui->input->insertPlainText("4"); ui->input->setFocus(); }
-void Calculator::on_b5_clicked() { ui->input->insertPlainText("5"); ui->input->setFocus(); }
-void Calculator::on_b6_clicked() { ui->input->insertPlainText("6"); ui->input->setFocus(); }
-void Calculator::on_b7_clicked() { ui->input->insertPlainText("7"); ui->input->setFocus(); }
-void Calculator::on_b8_clicked() { ui->input->insertPlainText("8"); ui->input->setFocus(); }
-void Calculator::on_b9_clicked() { ui->input->insertPlainText("9"); ui->input->setFocus(); }
+void Calculator::clean() {
+    if(shouldClean) {
+        ui->input->setText("");
+        ui->input->setFocus();
+        shouldClean = false;
+    }
+}
+
+void Calculator::on_b0_clicked() { clean(); ui->input->insertPlainText("0"); ui->input->setFocus(); }
+void Calculator::on_b1_clicked() { clean(); ui->input->insertPlainText("1"); ui->input->setFocus(); }
+void Calculator::on_b2_clicked() { clean(); ui->input->insertPlainText("2"); ui->input->setFocus(); }
+void Calculator::on_b3_clicked() { clean(); ui->input->insertPlainText("3"); ui->input->setFocus(); }
+void Calculator::on_b4_clicked() { clean(); ui->input->insertPlainText("4"); ui->input->setFocus(); }
+void Calculator::on_b5_clicked() { clean(); ui->input->insertPlainText("5"); ui->input->setFocus(); }
+void Calculator::on_b6_clicked() { clean(); ui->input->insertPlainText("6"); ui->input->setFocus(); }
+void Calculator::on_b7_clicked() { clean(); ui->input->insertPlainText("7"); ui->input->setFocus(); }
+void Calculator::on_b8_clicked() { clean(); ui->input->insertPlainText("8"); ui->input->setFocus(); }
+void Calculator::on_b9_clicked() { clean(); ui->input->insertPlainText("9"); ui->input->setFocus(); }
 
 void Calculator::on_signButton_clicked() {
     QString txt = ui->input->toPlainText();
@@ -201,6 +210,7 @@ void Calculator::on_sqrtButton_clicked(){
     ui->input->moveCursor(QTextCursor::End);
     addToHistory("sqrt " + n.toString() + " = " + s.toString());
     ui->input->setFocus();
+    shouldClean = true;
 }
 void Calculator::on_factButton_clicked(){
     BigInteger n = ui->input->toPlainText();
@@ -209,6 +219,7 @@ void Calculator::on_factButton_clicked(){
     ui->input->moveCursor(QTextCursor::End);
     addToHistory(n.toString() + "! = " + s.toString());
     ui->input->setFocus();
+    shouldClean = true;
 }
 
 
@@ -259,6 +270,7 @@ void Calculator::on_answerButton_clicked()
     ui->input->moveCursor(QTextCursor::End);
     ui->input->setFocus();
     waitingForOperand = true;
+    shouldClean = true;
 
     operation += ans.toString();
     addToHistory(operation);

@@ -51,6 +51,7 @@ private slots:
 
 private:
     Ui::Calculator *ui;
+    void clean();
 };
 
 #endif // CALCULATOR_H
