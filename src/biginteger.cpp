@@ -228,7 +228,7 @@ BigInteger BigInteger::mod(BigInteger other) {
     return *this - (this->divide(other) * other);
 }
 BigInteger BigInteger::pow(unsigned int exponent) {
-    if(exponent < 0) return BigInteger(0);
+    //if(exponent < 0) return BigInteger(0);
     if(exponent == 0) return BigInteger(1);
     if(exponent == 1) return *this;
 
