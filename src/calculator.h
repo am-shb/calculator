@@ -47,6 +47,8 @@ private slots:
 
     void on_input_textChanged();
 
+    void on_listView_doubleClicked(const QModelIndex &index);
+
 private:
     Ui::Calculator *ui;
 };

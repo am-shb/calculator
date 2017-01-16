@@ -272,3 +272,10 @@ void Calculator::on_input_textChanged()
         on_backspaceButton_clicked();
     }
 }
+
+void Calculator::on_listView_doubleClicked(const QModelIndex &index)
+{
+    ui->input->setText(index.data().toString().split(" ").last());
+    ui->input->moveCursor(QTextCursor::End);
+    ui->input->setFocus();
+}
