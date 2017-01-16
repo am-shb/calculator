@@ -267,12 +267,19 @@ BigInteger BigInteger::root(unsigned int r) {
 
     BigInteger i = BigInteger(10).pow(number.size() / 2);
     BigInteger step = i;
+    QString sstep;
     while (step >= 1){
         while (i.pow(r) <= *this) {
             i += step;
         }
         i -= step;
-        step /= 10;
+        //instead of step /= 10, right shift step
+        //step /= 10;
+        sstep = step.toString();
+        for(int i=sstep.size()-1; i>0; i--)
+            sstep[i] = sstep[i-1];
+        sstep[0] = '0';
+        step.setString(sstep);
     }
     return i;
 }
