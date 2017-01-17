@@ -265,7 +265,7 @@ BigInteger BigInteger::root(unsigned int r) {
     if(r%2 == 0 && this->isNegative()) // even root with negative value!
         return -1;
 
-    BigInteger i = BigInteger(10).pow(number.size() / 2);
+    BigInteger i = BigInteger(10).pow(number.size() / r);
     BigInteger step = i;
     QString sstep;
     while (step >= 1){
